@@ -147,3 +147,6 @@ JAZZMIN_SETTINGS = {
     "copyright": "Test site 2024",
     "show_ui_builder": True,
 }
+
+# Configure the custom user model
+AUTH_USER_MODEL = "userauths.User"
