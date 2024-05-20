@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "jazzmin",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -129,3 +130,14 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Jazzmin settings
+JAZZMIN_SETTINGS = {
+    "site_title": "Test site title",
+    "site_header": "Test site header",
+    "welcome_sign": "Welcome to Django Admin test site",
+    "site_brand": "Test site brand",
+    "welcome_sign": "Welcome to Django Admin test site",
+    "copyright": "Test site 2024",
+    "show_ui_builder": True,
+}
