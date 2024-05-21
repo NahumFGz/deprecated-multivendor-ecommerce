@@ -1,5 +1,8 @@
+import uuid
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db.models.signals import post_save
 
 
 class User(AbstractUser):
@@ -38,7 +41,7 @@ class Profile(models.Model):
     city = models.CharField(max_length=100, blank=True, null=True)
     address = models.CharField(max_length=255, blank=True, null=True)
     date = models.DateTimeField(auto_now_add=True)
-    pid = models.UUIDField(unique=True, editable=False)
+    pid = models.UUIDField(unique=True, editable=False, default=uuid.uuid4)
 
     def __str__(self):
         if self.full_name:
@@ -51,3 +54,18 @@ class Profile(models.Model):
             self.full_name = self.user.full_name
 
         super(Profile, self).save(*args, **kwargs)
+
+
+# Definir los receptores de señales
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
+
+
+# Conectar las señales
+post_save.connect(create_user_profile, sender=User)
+post_save.connect(save_user_profile, sender=User)
